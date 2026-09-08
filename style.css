@@ -1,0 +1,97 @@
+:root {
+  --bg-matte: #0e0e11;
+  --card-matte: #16161a;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --btn-white: #f8f9fa;
+  --btn-white-text: #0e0e11;
+  --gold-primary: #d4af37;
+  --gold-gradient: linear-gradient(135deg, #dfba48 0%, #c49925 50%, #f9e282 100%);
+  --text-main: #f0f0f2;
+  --text-muted: #9a9aa2;
+  --glass-bg: rgba(22, 22, 26, 0.72);
+  --glass-blur: blur(16px);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-matte);
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Header & Glassmorphism */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--card-border);
+  padding: 14px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-text h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Slider Track Styling */
+.slide-action-track {
+  position: relative;
+  height: 48px;
+  background: #000;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+  user-select: none;
+}
+
+.slide-action-track .slider-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.slide-handle {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 42px;
+  height: 42px;
+  background: var(--btn-white);
+  color: var(--btn-white-text);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: grab;
+  z-index: 2;
+}
+
+.slide-handle:active {
+  cursor: grabbing;
+  background: var(--gold-primary);
+}
+
