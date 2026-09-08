@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#0e0e11">
+  <title>Charan Mobiles | Naravi (All-Device Edition)</title>
+  
+  <!-- Cloud Database SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-matte: #0e0e11;
+      --card-matte: #16161a;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --btn-white: #f8f9fa;
+      --btn-white-text: #0e0e11;
+      --gold-primary: #d4af37;
+      --gold-glow: rgba(212, 175, 55, 0.35);
+      --gold-gradient: linear-gradient(135deg, #dfba48 0%, #c49925 50%, #f9e282 100%);
+      --text-main: #f0f0f2;
+      --text-muted: #9a9aa2;
+      --glass-bg: rgba(22, 22, 26, 0.75);
+      --glass-blur: blur(16px);
+      --focus-ring: 3px solid #d4af37;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      outline: none;
+    }
+
+    /* TV Remote Spatial Navigation / Accessibility Focus Ring */
+    *:focus-visible {
+      outline: var(--focus-ring) !important;
+      outline-offset: 3px !important;
+      border-radius: 4px;
+    }
+
+    body {
+      background-color: var(--bg-matte);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.5;
+      font-size: clamp(0.85rem, 1.2vw, 1.15rem);
+    }
+
+    /* Universal Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border-bottom: 1px solid var(--card-border);
+      padding: clamp(8px, 1.5vw, 16px) clamp(12px, 3vw, 32px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .brand-logo-svg {
+      width: clamp(34px, 4vw, 50px);
+      height: clamp(34px, 4vw, 50px);
+      filter: drop-shadow(0 0 6px var(--gold-glow));
+      flex-shrink: 0;
+    }
+    .brand-text h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+      letter-spacing: 2px;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+    .brand-text span {
+      font-size: 0.6rem;
+      letter-spacing: 2.5px;
+      color: #aaa;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: clamp(8px, 1.5vw, 20px);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    nav a, .nav-btn {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: clamp(0.75rem, 1vw, 0.95rem);
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    nav a:hover, nav a:focus {
+      color: var(--gold-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .btn-corner-trigger {
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      background: transparent;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* Live Cloud Sync Bar */
+    .sync-bar {
+      background: rgba(14, 14, 17, 0.95);
+      border-bottom: 1px solid var(--card-border);
+      padding: 6px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: clamp(0.7rem, 0.85vw, 0.82rem);
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .sync-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #22c55e;
+    }
+    .sync-dot {
+      width: 7px;
+      height: 7px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #22c55e;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: clamp(30px, 6vw, 70px) 16px;
+      text-align: center;
+      background: radial-gradient(circle at top, #1e1e24 0%, var(--bg-matte) 85%);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 50px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--gold-primary);
+      font-size: 0.75rem;
+      margin-bottom: 12px;
+    }
+    .hero h2 {
+      font-size: clamp(1.4rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto 16px;
+      color: var(--text-muted);
+      font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+    }
+    .owner-tag .hl {
+      font-weight: 800;
+      color: var(--gold-primary);
+      font-size: 1.15em;
+      text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+    }
+
+    /* Universal Responsive Grid */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: clamp(16px, 3vw, 36px) clamp(12px, 2.5vw, 24px);
+    }
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      margin-bottom: 4px;
+    }
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: clamp(0.75rem, 1vw, 0.88rem);
+      margin-bottom: 20px;
+    }
+
+    /* Grid adapts across TV (5 cols), Laptop (3-4 cols), Tablet (2 cols), Mobile (1-2 cols), Smartwatch (1 col) */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(clamp(220px, 22vw, 310px), 1fr));
+      gap: clamp(12px, 2vw, 24px);
+    }
+    .product-card {
+      background: var(--card-matte);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: clamp(12px, 1.8vw, 18px);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .product-card:hover, .product-card:focus-within {
+      border-color: rgba(212, 175, 55, 0.4);
+      transform: translateY(-3px);
+    }
+    .product-img {
+      width: 100%;
+      height: clamp(140px, 18vw, 210px);
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: #000;
+    }
+    .product-badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .product-name {
+      font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+      font-weight: 600;
+      color: #fff;
+    }
+    .product-condition {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .price-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 6px 0;
+    }
+    .offer-price {
+      font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+      font-weight: 700;
+      color: var(--gold-primary);
+    }
+    .actual-price {
+      font-size: 0.8rem;
+      text-decoration: line-through;
+      color: #777;
+    }
+    .product-details {
+      font-size: clamp(0.75rem, 0.9vw, 0.82rem);
+      color: #bbb;
+      margin-bottom: 12px;
+      flex-grow: 1;
+    }
+
+    /* Universal Action Controls (Swipe on touch / Click on mouse & TV) */
+    .slide-action-track {
+      position: relative;
+      height: 46px;
+      background: #000;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      touch-action: none;
+    }
+    .slider-label {
+      font-size: clamp(0.68rem, 0.85vw, 0.78rem);
+      font-weight: 700;
+      color: #fff;
+      pointer-events: none;
+      z-index: 1;
+      padding: 0 40px;
+      text-align: center;
+    }
+    .slide-handle {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 40px;
+      height: 40px;
+      background: var(--btn-white);
+      color: var(--btn-white-text);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      cursor: grab;
+      z-index: 2;
+    }
+    .slide-handle:active {
+      cursor: grabbing;
+      background: var(--gold-primary);
+    }
+
+    /* Fallback/TV button */
+    .btn-matte-white {
+      width: 100%;
+      background: var(--btn-white);
+      color: var(--btn-white-text);
+      border: none;
+      padding: 12px 16px;
+      border-radius: 28px;
+      font-weight: 700;
+      font-size: clamp(0.78rem, 0.95vw, 0.9rem);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-matte-white:hover, .btn-matte-white:focus {
+      background: #e2e3e8;
+      transform: scale(1.02);
+    }
+
+    /* Multi-Utility Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(clamp(220px, 20vw, 280px), 1fr));
+      gap: 16px;
+    }
+    .service-card {
+      background: var(--card-matte);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .service-card h3 {
+      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+      color: var(--gold-primary);
+      margin-bottom: 6px;
+    }
+    .service-card p {
+      font-size: clamp(0.75rem, 0.9vw, 0.84rem);
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    /* Forms and Panels */
+    .panel-box {
+      background: var(--card-matte);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: clamp(16px, 2.5vw, 24px);
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .form-control {
+      width: 100%;
+      background: #09090b;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px 14px;
+      color: #fff;
+      border-radius: 6px;
+      font-size: clamp(0.85rem, 1vw, 0.95rem);
+    }
+
+    /* Owner Drawer */
+    .owner-panel {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 460px;
+      height: 100%;
+      background: #111114;
+      border-left: 1px solid var(--gold-primary);
+      z-index: 1100;
+      overflow-y: auto;
+      padding: 24px;
+      transition: right 0.35s ease;
+    }
+    .owner-panel.open {
+      right: 0;
+    }
+    .owner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #26262a;
+      padding-bottom: 10px;
+    }
+
+    /* Offer Modal */
+    .ad-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .ad-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .ad-modal {
+      background: #151518;
+      border: 1px solid var(--gold-primary);
+      border-radius: 12px;
+      max-width: 440px;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+    .ad-close {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: #000;
+      border: 1px solid #444;
+      color: #fff;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    /* Ultra-small screens (Smartwatches / Tiny viewports under 320px) */
+    @media (max-width: 320px) {
+      header { padding: 6px; }
+      .brand-text h1 { font-size: 0.95rem; }
+      .product-grid { grid-template-columns: 1fr; }
+      .slider-label { font-size: 0.65rem; padding: 0 20px; }
+    }
+
+    /* TV & Large Display Modes (1080p, 4K Smart TVs) */
+    @media (min-width: 1920px) {
+      body { font-size: 1.25rem; }
+      .container { max-width: 1800px; }
+      .slide-action-track { height: 56px; border-radius: 35px; }
+      .slide-handle { width: 50px; height: 50px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Live Multi-Device Sync Bar -->
+  <div class="sync-bar">
+    <div class="sync-status" tabindex="0">
+      <div class="sync-dot"></div>
+      <span id="syncStatusLabel">Universal Multi-Device Sync Connected</span>
+    </div>
+    <div style="color: var(--gold-primary);" tabindex="0">
+      8:00 AM - 8:00 PM (Sunday Holiday)
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <a href="#" class="brand-wrap" tabindex="0">
+      <!-- Universal Vector Logo (Zero Broken Path Errors) -->
+      <svg class="brand-logo-svg" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="46" stroke="#d4af37" stroke-width="2"/>
+        <rect x="22" y="38" width="56" height="26" rx="4" stroke="#d4af37" stroke-width="2"/>
+        <path d="M 28 50 C 40 25, 60 25, 72 50 C 60 75, 40 75, 28 50 Z" fill="#d4af37" opacity="0.35"/>
+        <line x1="20" y1="50" x2="80" y2="50" stroke="#f9e282" stroke-width="2"/>
+        <polygon points="80,47 86,50 80,53" fill="#f9e282"/>
+        <circle cx="42" cy="32" r="6" fill="#d4af37"/>
+      </svg>
+      <div class="brand-text">
+        <h1>CHARAN</h1>
+        <span>M O B I L E S</span>
+      </div>
+    </a>
+
+    <nav>
+      <a href="#products" tabindex="0">Products</a>
+      <a href="#services" tabindex="0">Services</a>
+      <a href="#ebill" tabindex="0">E-Bill</a>
+      <a href="#reach" tabindex="0">Location</a>
+      <button class="nav-btn btn-corner-trigger" onclick="openOwnerLogin()" tabindex="0">Owner Corner</button>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-badge" tabindex="0">UNIVERSAL STORE & COMMUNITY DESK</div>
+    <h2 tabindex="0">SMART CHOICE. SMART LIFE.</h2>
+    <p tabindex="0">Engineered for Mobiles, Laptops, Tablets, and Smart TV displays. Direct verified purchases and services.</p>
+    <div class="owner-tag" tabindex="0">
+      Proprietor: <span class="hl">M</span>uthu <span class="hl">K</span>umar
+    </div>
+  </section>
+
+  <!-- Main Container -->
+  <div class="container">
+    
+    <!-- Real-time Synced Products Grid -->
+    <section id="products" style="margin-bottom: 50px;">
+      <h2 class="section-title" tabindex="0">Verified Inventory</h2>
+      <p class="section-subtitle" tabindex="0">Real-time synced across all customer screens. Swipe or click to buy via WhatsApp.</p>
+      <div class="product-grid" id="productGridContainer">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Side Businesses Grid -->
+    <section id="services" style="margin-bottom: 50px;">
+      <h2 class="section-title" tabindex="0">Multi-Utility Community Services</h2>
+      <p class="section-subtitle" tabindex="0">Direct service arrangements managed by Muthu Kumar.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3 tabindex="0">SBI Insurance Services</h3>
+          <p tabindex="0">Vehicle, health, and life insurance guidance with instant WhatsApp documentation support.</p>
+          <a class="btn-matte-white" href="https://wa.me/916360509055?text=Hello%20Charan%20Mobiles,%20I%20want%20details%20about%20SBI%20Insurance" target="_blank" tabindex="0">Contact on WhatsApp</a>
+        </div>
+        <div class="service-card">
+          <h3 tabindex="0">Rubber Tappers & Workers</h3>
+          <p tabindex="0">Connecting rubber estate owners with professional tappers across Belthangady and DK District.</p>
+          <a class="btn-matte-white" href="https://wa.me/916360509055?text=Hello%20Charan%20Mobiles,%20I%20need%20Rubber%20tapper%20workers" target="_blank" tabindex="0">Contact on WhatsApp</a>
+        </div>
+        <div class="service-card">
+          <h3 tabindex="0">Water Pumps & Motors</h3>
+          <p tabindex="0">Direct factory-import durable electric motors and water pumps from Tamil Nadu at wholesale cost.</p>
+          <a class="btn-matte-white" href="https://wa.me/916360509055?text=Hello%20Charan%20Mobiles,%20I%20want%20details%20on%20Water%20Pumps%20from%20Tamil%20Nadu" target="_blank" tabindex="0">Contact on WhatsApp</a>
+        </div>
+        <div class="service-card">
+          <h3 tabindex="0">Used Vehicles Assistance</h3>
+          <p tabindex="0">Transparent pre-owned vehicle coordination without commission agents.</p>
+          <a class="btn-matte-white" href="https://wa.me/916360509055?text=Hello%20Charan%20Mobiles,%20I%20want%20information%20on%20used%20vehicles" target="_blank" tabindex="0">Contact on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- E-Bill Download & Lookup -->
+    <section id="ebill" style="margin-bottom: 50px;">
+      <div class="panel-box">
+        <h2 class="section-title" tabindex="0">Cloud E-Bill Verification</h2>
+        <p class="section-subtitle" tabindex="0">Enter customer phone number or Invoice ID to view and print your bill on any screen.</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; max-width: 500px;">
+          <input type="text" id="billInput" class="form-control" placeholder="e.g. 6360509055 or INV-101" tabindex="0">
+          <button class="btn-matte-white" style="width: auto; padding: 10px 24px;" onclick="lookupEbill()" tabindex="0">Search Bill</button>
+        </div>
+
+        <div id="billPreviewArea" style="margin-top: 18px; display: none; background: #fff; color: #000; padding: 20px; border-radius: 8px;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 8px;">
+            <div>
+              <strong>CHARAN MOBILES</strong><br>
+              Naravi, Belthangady Taluk - 574109<br>
+              Mob: 6360509055
+            </div>
+            <div style="text-align: right;">
+              <strong id="bInvId"></strong><br>
+              Date: <span id="bDate"></span>
+            </div>
+          </div>
+          <div style="margin: 12px 0;">Customer: <strong id="bCust"></strong> (<span id="bPhoneDisp"></span>)</div>
+          <p><strong>Item / Work:</strong> <span id="bItemDisp"></span></p>
+          <p style="font-size: 1.15rem; font-weight: 700; margin-top: 10px;">Total: ₹<span id="bTotal"></span></p>
+          <button class="btn-matte-white" style="background:#000; color:#fff; max-width: 180px; margin-top: 14px;" onclick="window.print()" tabindex="0">Print / PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location & Directions -->
+    <section id="reach" style="margin-bottom: 50px;">
+      <div class="panel-box">
+        <h2 class="section-title" tabindex="0">Store Location</h2>
+        <p class="section-subtitle" tabindex="0">Near Sooryanarayana Temple, Naravi, Belthangady, Dakshina Kannada - 574109</p>
+        <div class="slide-action-track" id="reachTrack" tabindex="0" role="button" aria-label="Slide to reach store via Google Maps">
+          <span class="slider-label">SLIDE TO REACH ON GOOGLE MAPS →</span>
+          <div class="slide-handle" id="reachHandle">➤</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Popup Ad Modal -->
+  <div class="ad-overlay" id="offerModal">
+    <div class="ad-modal">
+      <div class="ad-close" onclick="closeAdModal()" tabindex="0" role="button" aria-label="Close Advertisement">&times;</div>
+      <img id="adImg" src="" alt="Offer" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;">
+      <h3 id="adTitle" style="color:var(--gold-primary); margin-bottom: 6px;"></h3>
+      <p id="adDesc" style="font-size: 0.85rem; color: #bbb; margin-bottom: 12px;"></p>
+      <a class="btn-matte-white" href="https://wa.me/916360509055" target="_blank" tabindex="0">Claim Offer on WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- Owner Corner Modal / Drawer -->
+  <div class="owner-panel" id="ownerDrawer">
+    <div class="owner-header">
+      <h3 style="color:var(--gold-primary);">Owner Administration</h3>
+      <button onclick="closeOwnerCorner()" style="background:transparent; border:none; color:#fff; font-size:1.5rem; cursor:pointer;" tabindex="0">&times;</button>
+    </div>
+
+    <!-- Login -->
+    <div id="authBox">
+      <div class="form-group">
+        <label>Passcode</label>
+        <input type="password" id="passInput" class="form-control" placeholder="Enter owner passcode" tabindex="0">
+      </div>
+      <button class="btn-matte-white" onclick="verifyOwner()" tabindex="0">Access Corner</button>
+      <p id="loginErr" style="color: #f87171; font-size: 0.78rem; margin-top: 8px; display: none;">Invalid Passcode</p>
+    </div>
+
+    <!-- Controls (Revealed after charan10) -->
+    <div id="dashBox" style="display: none;">
+      
+      <!-- Supabase Cloud Credentials -->
+      <div style="background: #18181c; padding: 14px; border-radius: 8px; margin-bottom: 14px; border: 1px solid #29292e;">
+        <h4 style="color:var(--gold-primary); font-size: 0.9rem; margin-bottom: 8px;">Multi-Device Cloud Setup</h4>
+        <div class="form-group">
+          <label>Project URL</label>
+          <input type="text" id="sbUrl" class="form-control" placeholder="https://xxxx.supabase.co" tabindex="0">
+        </div>
+        <div class="form-group">
+          <label>Anon Key</label>
+          <input type="text" id="sbKey" class="form-control" placeholder="eyJhbGciOi..." tabindex="0">
+        </div>
+        <button class="btn-matte-white" onclick="saveCloudConfig()" tabindex="0">Connect Cloud</button>
+      </div>
+
+      <!-- Add Product -->
+      <div style="background: #18181c; padding: 14px; border-radius: 8px; margin-bottom: 14px; border: 1px solid #29292e;">
+        <h4 style="color:var(--gold-primary); font-size: 0.9rem; margin-bottom: 8px;">Publish Product (All Devices)</h4>
+        <div class="form-group">
+          <label>Product Name</label>
+          <input type="text" id="prodName" class="form-control" placeholder="e.g. Vivo V30" tabindex="0">
+        </div>
+        <div class="form-group">
+          <label>Condition</label>
+          <select id="prodCond" class="form-control" tabindex="0">
+            <option value="Brand New">Brand New</option>
+            <option value="Refurbished">Refurbished</option>
+            <option value="Used / Pre-Owned">Used / Pre-Owned</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Offer Price (₹)</label>
+          <input type="number" id="prodOffer" class="form-control" placeholder="14999" tabindex="0">
+        </div>
+        <div class="form-group">
+          <label>Actual Price (₹)</label>
+          <input type="number" id="prodActual" class="form-control" placeholder="17999" tabindex="0">
+        </div>
+        <div class="form-group">
+          <label>Details</label>
+          <input type="text" id="prodDesc" class="form-control" placeholder="RAM, Storage, Condition..." tabindex="0">
+        </div>
+        <div class="form-group">
+          <label>Upload Image (Camera or File)</label>
+          <input type="file" id="prodFile" class="form-control" accept="image/*" capture="environment" tabindex="0">
+        </div>
+        <button class="btn-matte-white" id="btnSaveProd" onclick="publishProduct()" tabindex="0">Upload & Publish</button>
+      </div>
+
+      <!-- Generate E-Bill -->
+      <div style="background: #18181c; padding: 14px; border-radius: 8px; margin-bottom: 14px; border: 1px solid #29292e;">
+        <h4 style="color:var(--gold-primary); font-size: 0.9rem; margin-bottom: 8px;">Create E-Bill</h4>
+        <div class="form-group">
+          <label>Customer Mobile</label>
+          <input type="text" id="ebPhone" class="form-control" placeholder="10-digit number" tabindex="0">
+        </div>
+        <div class="form-group">
+          <label>Customer Name</label>
+          <input type="text" id="ebName" class="form-control" placeholder="Name" tabindex="0">
+        </div>
+        <div class="form-group">
+          <label>Item / Service</label>
+          <input type="text" id="ebItem" class="form-control" placeholder="Display Combo Replacement" tabindex="0">
+        </div>
+        <div class="form-group">
+          <label>Amount (₹)</label>
+          <input type="number" id="ebAmount" class="form-control" placeholder="2100" tabindex="0">
+        </div>
+        <button class="btn-matte-white" onclick="saveEbill()" tabindex="0">Issue Invoice</button>
+      </div>
+
+      <!-- Bilingual Reminders -->
+      <div style="background: #18181c; padding: 14px; border-radius: 8px; margin-bottom: 14px; border: 1px solid #29292e;">
+        <h4 style="color:var(--gold-primary); font-size: 0.9rem; margin-bottom: 8px;">Kannada + English WhatsApp Alert</h4>
+        <div class="form-group">
+          <label>Customer Phone</label>
+          <input type="text" id="rmPhone" class="form-control" placeholder="Customer Number" tabindex="0">
+        </div>
+        <div class="form-group">
+          <label>Service Type</label>
+          <select id="rmType" class="form-control" tabindex="0">
+            <option value="display">Display Changed (ಡಿಸ್ಪ್ಲೇ ಬದಲಾವಣೆ)</option>
+            <option value="battery">Battery Changed (ಬ್ಯಾಟರಿ ಬದಲಾವಣೆ)</option>
+            <option value="ready">Device Ready (ಮೊಬೈಲ್ ಸರ್ವಿಸ್ ಸಿದ್ಧ)</option>
+            <option value="balance">Pending Balance (ಬಾಕಿ ಪಾವತಿ)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Due Amount (₹)</label>
+          <input type="number" id="rmAmount" class="form-control" placeholder="0 if fully paid" tabindex="0">
+        </div>
+        <button class="btn-matte-white" onclick="sendBilingualReminder()" tabindex="0">Dispatch to WhatsApp</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Universal Logic Engine -->
+  <script>
+    // State & Storage
+    let dbClient = null;
+    const sbUrlSaved = localStorage.getItem('cm_sb_url');
+    const sbKeySaved = localStorage.getItem('cm_sb_key');
+
+    if (sbUrlSaved && sbKeySaved && window.supabase) {
+      dbClient = window.supabase.createClient(sbUrlSaved, sbKeySaved);
+    }
+
+    const defaultProducts = [
+      {
+        name: 'Redmi Note 13 Pro 5G',
+        condition: 'Brand New',
+        offer_price: 18999,
+        actual_price: 21999,
+        description: '8GB RAM, 256GB, 200MP OIS Camera. Official store warranty.'
+      },
+      {
+        name: 'iPhone 13 (Midnight Black)',
+        condition: 'Used / Pre-Owned',
+        offer_price: 36500,
+        actual_price: 44000,
+        description: '128GB, 88% Battery health, pristine screen and frame.'
+      }
+    ];
+
+    // Real-time Cloud + Offline Fallback
+    async function initCatalog() {
+      if (!dbClient) {
+        document.getElementById('syncStatusLabel').textContent = "Offline Mode (Laptop/Mobile Local Demo)";
+        renderProducts(defaultProducts);
+        return;
+      }
+
+      document.getElementById('syncStatusLabel').textContent = "Multi-Device Live Sync Active (Cloud)";
+      fetchCloudProducts();
+
+      // Real-time subscriptions for phones, laptops, and TVs
+      dbClient.channel('public:products')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, () => {
+          fetchCloudProducts();
+        })
+        .subscribe();
+    }
+
+    async function fetchCloudProducts() {
+      if (!dbClient) return;
+      const { data, error } = await dbClient.from('products').select('*').order('created_at', { ascending: false });
+      if (!error && data) {
+        renderProducts(data);
+      }
+    }
+
+    function renderProducts(items) {
+      const grid = document.getElementById('productGridContainer');
+      grid.innerHTML = '';
+
+      items.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.setAttribute('tabindex', '0');
+
+        card.innerHTML = `
+          <span class="product-badge">${item.condition}</span>
+          <img src="${item.image_url || 'data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\'><rect fill=\'%231a1a1f\' width=\'300\' height=\'200\'/><text fill=\'%23d4af37\' x=\'50%\' y=\'50%\' text-anchor=\'middle\' font-size=\'16\'>Charan Mobiles</text></svg>'}" class="product-img" alt="${item.name}">
+          <div class="product-name">${item.name}</div>
+          <div class="product-condition">${item.condition}</div>
+          <div class="price-wrap">
+            <span class="offer-price">₹${Number(item.offer_price).toLocaleString()}</span>
+            <span class="actual-price">₹${Number(item.actual_price).toLocaleString()}</span>
+          </div>
+          <div class="product-details">${item.description || ''}</div>
+          
+          <!-- Universal slider + Smart TV fallback enter key action -->
+          <div class="slide-action-track" id="pTrack_${idx}" tabindex="0" role="button" aria-label="Slide to buy on WhatsApp">
+            <span class="slider-label">SLIDE TO BUY (WHATSAPP) →</span>
+            <div class="slide-handle" id="pHandle_${idx}">➤</div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+
+        // Bind touch, mouse drag, and TV remote "Enter/OK" event
+        bindUniversalAction(`pTrack_${idx}`, `pHandle_${idx}`, () => {
+          const msg = `Hello Charan Mobiles (Muthu Kumar), I want to buy:\n*Product:* ${item.name}\n*Price:* ₹${item.offer_price}`;
+          window.open(`https://wa.me/916360509055?text=${encodeURIComponent(msg)}`, '_blank');
+        });
+      });
+    }
+
+    // Universal Action Engine: Handles Touch (Phones), Mouse Drag (Laptops), and Enter/Space Keys (Smart TVs)
+    function bindUniversalAction(trackId, handleId, triggerFn) {
+      const track = document.getElementById(trackId);
+      const handle = document.getElementById(handleId);
+      if (!track || !handle) return;
+
+      let dragging = false;
+      let startX = 0;
+      let maxDrag = 0;
+
+      const onStart = (e) => {
+        dragging = true;
+        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        maxDrag = track.clientWidth - handle.clientWidth - 6;
+      };
+
+      const onMove = (e) => {
+        if (!dragging) return;
+        const currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        let delta = currentX - startX;
+        if (delta < 0) delta = 0;
+        if (delta > maxDrag) delta = maxDrag;
+        handle.style.left = `${delta + 3}px`;
+
+        if (delta >= maxDrag - 4) {
+          dragging = false;
+          handle.style.left = '3px';
+          triggerFn();
+        }
+      };
+
+      const onEnd = () => {
+        if (!dragging) return;
+        dragging = false;
+        handle.style.left = '3px';
+      };
+
+      // Pointer/Touch listeners
+      handle.addEventListener('mousedown', onStart);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onEnd);
+
+      handle.addEventListener('touchstart', onStart, { passive: true });
+      window.addEventListener('touchmove', onMove, { passive: true });
+      window.addEventListener('touchend', onEnd);
+
+      // Smart TV Remote & Keyboard Accessibility (Enter or Space triggers directly)
+      track.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handle.style.left = `${track.clientWidth - handle.clientWidth - 6}px`;
+          setTimeout(() => {
+            handle.style.left = '3px';
+            triggerFn();
+          }, 150);
+        }
+      });
+    }
+
+    // E-Bill Engine
+    async function lookupEbill() {
+      const query = document.getElementById('billInput').value.trim();
+      if (!query) { alert('Enter mobile or Invoice ID'); return; }
+
+      if (dbClient) {
+        const { data, error } = await dbClient.from('ebills')
+          .select('*')
+          .or(`phone.eq.${query},invoice_id.eq.${query}`)
+          .single();
+
+        if (error || !data) {
+          alert('No invoice found on cloud database.');
+          return;
+        }
+        showBill(data.invoice_id, new Date(data.created_at).toLocaleDateString(), data.customer_name, data.phone, data.item, data.amount);
+      } else {
+        // Local Fallback Demo
+        showBill("INV-DEMO", "08/09/2026", "Customer", query, "Mobile Repair Service", "1500");
+      }
+    }
+
+    function showBill(id, date, name, phone, item, total) {
+      document.getElementById('bInvId').textContent = id;
+      document.getElementById('bDate').textContent = date;
+      document.getElementById('bCust').textContent = name;
+      document.getElementById('bPhoneDisp').textContent = phone;
+      document.getElementById('bItemDisp').textContent = item;
+      document.getElementById('bTotal').textContent = total;
+      document.getElementById('billPreviewArea').style.display = 'block';
+    }
+
+    // Owner Functions
+    function openOwnerLogin() { document.getElementById('ownerDrawer').classList.add('open'); }
+    function closeOwnerCorner() { document.getElementById('ownerDrawer').classList.remove('open'); }
+
+    function verifyOwner() {
+      if (document.getElementById('passInput').value === 'charan10') {
+        document.getElementById('authBox').style.display = 'none';
+        document.getElementById('dashBox').style.display = 'block';
+        document.getElementById('sbUrl').value = localStorage.getItem('cm_sb_url') || '';
+        document.getElementById('sbKey').value = localStorage.getItem('cm_sb_key') || '';
+      } else {
+        document.getElementById('loginErr').style.display = 'block';
+      }
+    }
+
+    function saveCloudConfig() {
+      localStorage.setItem('cm_sb_url', document.getElementById('sbUrl').value.trim());
+      localStorage.setItem('cm_sb_key', document.getElementById('sbKey').value.trim());
+      alert("Settings saved. Refreshing to activate cloud...");
+      window.location.reload();
+    }
+
+    async function publishProduct() {
+      const name = document.getElementById('prodName').value.trim();
+      const cond = document.getElementById('prodCond').value;
+      const offer = document.getElementById('prodOffer').value.trim();
+      const actual = document.getElementById('prodActual').value.trim();
+      const desc = document.getElementById('prodDesc').value.trim();
+      const fileInput = document.getElementById('prodFile');
+      const btn = document.getElementById('btnSaveProd');
+
+      if (!name || !offer) { alert('Name and Price required'); return; }
+
+      btn.textContent = "Publishing...";
+      btn.disabled = true;
+
+      let imgUrl = "";
+      try {
+        if (dbClient && fileInput.files && fileInput.files[0]) {
+          const file = fileInput.files[0];
+          const fileName = `item_${Date.now()}_${file.name}`;
+          const { error: upErr } = await dbClient.storage.from('store-assets').upload(fileName, file);
+          if (!upErr) {
+            const { data } = dbClient.storage.from('store-assets').getPublicUrl(fileName);
+            imgUrl = data.publicUrl;
+          }
+        }
+
+        if (dbClient) {
+          await dbClient.from('products').insert([
+            { name, condition: cond, offer_price: Number(offer), actual_price: Number(actual || offer), description: desc, image_url: imgUrl }
+          ]);
+        } else {
+          defaultProducts.unshift({ name, condition: cond, offer_price: offer, actual_price: actual || offer, description: desc });
+          renderProducts(defaultProducts);
+        }
+        alert('Product published to all devices.');
+      } catch (e) {
+        alert('Error: ' + e.message);
+      } finally {
+        btn.textContent = "Upload & Publish";
+        btn.disabled = false;
+      }
+    }
+
+    async function saveEbill() {
+      const phone = document.getElementById('ebPhone').value.trim();
+      const name = document.getElementById('ebName').value.trim();
+      const item = document.getElementById('ebItem').value.trim();
+      const amount = document.getElementById('ebAmount').value.trim();
+      if (!phone || !amount) { alert('Phone and amount required'); return; }
+
+      const invId = "INV-" + Math.floor(1000 + Math.random() * 9000);
+      if (dbClient) {
+        await dbClient.from('ebills').insert([
+          { invoice_id: invId, phone, customer_name: name || 'Valued Customer', item, amount: Number(amount) }
+        ]);
+      }
+      alert(`Invoice ${invId} created. Customer can search using phone: ${phone}`);
+    }
+
+    function sendBilingualReminder() {
+      const phone = document.getElementById('rmPhone').value.trim();
+      const type = document.getElementById('rmType').value;
+      const amount = document.getElementById('rmAmount').value.trim();
+      if (!phone) { alert('Enter customer phone'); return; }
+
+      let kn = "", en = "";
+      if (type === 'display') {
+        kn = "ನಿಮ್ಮ ಮೊಬೈಲ್ ಡಿಸ್ಪ್ಲೇ ಬದಲಾವಣೆ ಕೆಲಸ ಪೂರ್ಣಗೊಂಡಿದೆ.";
+        en = "Your mobile display change work is completed.";
+      } else if (type === 'battery') {
+        kn = "ನಿಮ್ಮ ಮೊಬೈಲ್ ಹೊಸ ಬ್ಯಾಟರಿ ಬದಲಾವಣೆ ಕೆಲಸ ಮುಗಿದಿದೆ.";
+        en = "Your mobile battery replacement is finished.";
+      } else if (type === 'ready') {
+        kn = "ನಿಮ್ಮ ಮೊಬೈಲ್ ಸರ್ವಿಸ್ ಮುಗಿದಿದೆ. ಶಾಪಿಗೆ ಬಂದು ಪಡೆದುಕೊಳ್ಳಿ.";
+        en = "Your mobile service is finished and ready for pickup.";
+      } else {
+        kn = "ದಯವಿಟ್ಟು ಉಳಿದಿರುವ ಬಾಕಿ ಮೊತ್ತವನ್ನು ಪಾವತಿಸಿ.";
+        en = "Kindly settle your pending balance payment.";
+      }
+
+      const billTxt = amount > 0 ? `\n*Amount / ಬಾಕಿ ಮೊತ್ತ:* ₹${amount}\nUPI: charanmobiles09-1@okicici` : '';
+      const msg = `*CHARAN MOBILES - NARAVI*\nನಮಸ್ಕಾರ / Hello,\n\n${kn}\n${en}\n${billTxt}\n\nShop Address: Near Sooryanarayana Temple, Naravi\nPhone: 6360509055`;
+      const cleanPhone = phone.replace(/\D/g, '');
+      const fullPhone = cleanPhone.length === 10 ? '91' + cleanPhone : cleanPhone;
+      window.open(`https://wa.me/${fullPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function closeAdModal() { document.getElementById('offerModal').classList.remove('active'); }
+
+    // Init Universal Engine
+    window.addEventListener('DOMContentLoaded', () => {
+      initCatalog();
+      bindUniversalAction('reachTrack', 'reachHandle', () => {
+        window.open('https://maps.app.goo.gl/bKs9CdG2TAaKtRuy5?g_st=ac', '_blank');
+      });
+    });
+  </script>
+</body>
+</html>
+
