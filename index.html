@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charan Mobiles | Naravi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-matte: #0e0e11;
+      --card-matte: #16161a;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --btn-white: #f8f9fa;
+      --btn-white-text: #0e0e11;
+      --gold-primary: #d4af37;
+      --gold-gradient: linear-gradient(135deg, #dfba48 0%, #c49925 50%, #f9e282 100%);
+      --text-main: #f0f0f2;
+      --text-muted: #9a9aa2;
+      --glass-bg: rgba(22, 22, 26, 0.72);
+      --glass-blur: blur(16px);
+      --accent-highlight: #e6c65b;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-matte);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Top Utility Bar */
+    .top-bar {
+      background: rgba(10, 10, 12, 0.9);
+      border-bottom: 1px solid var(--card-border);
+      padding: 8px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+    }
+    .top-bar .timing {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold-primary);
+    }
+    .top-bar .quick-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 12px;
+      transition: 0.2s color;
+    }
+    .top-bar .quick-links a:hover {
+      color: #fff;
+    }
+
+    /* Header & Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .brand-logo-svg {
+      width: 44px;
+      height: 44px;
+      filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.35));
+    }
+    .brand-text h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.35rem;
+      letter-spacing: 2px;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+    }
+    .brand-text span {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      color: #b0b0b8;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+    nav a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    nav a:hover {
+      color: var(--gold-primary);
+    }
+    .btn-corner-trigger {
+      padding: 6px 14px;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      cursor: pointer;
+      background: transparent;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .btn-corner-trigger:hover {
+      background: var(--gold-primary);
+      color: #000;
+    }
+
+    /* Hero Section with Glassmorphism */
+    .hero {
+      position: relative;
+      padding: 60px 20px;
+      text-align: center;
+      background: radial-gradient(circle at top, #1e1e24 0%, var(--bg-matte) 85%);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 50px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--gold-primary);
+      font-size: 0.8rem;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    .hero h2 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto 24px auto;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .hero .owner-tag {
+      font-size: 0.9rem;
+      color: #e0e0e0;
+      margin-top: 10px;
+    }
+    .owner-tag .hl {
+      font-weight: 800;
+      color: var(--gold-primary);
+      font-size: 1.15rem;
+      text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+    }
+
+    /* Interactive Container Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 16px;
+    }
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+    }
+
+    /* Swipe Slider Controls */
+    .slide-action-track {
+      position: relative;
+      height: 48px;
+      background: #000;
+      border-radius: 30px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      user-select: none;
+      touch-action: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+    }
+    .slide-action-track .slider-label {
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .slide-handle {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 42px;
+      height: 42px;
+      background: var(--btn-white);
+      color: var(--btn-white-text);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: grab;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      transition: background 0.2s ease;
+      z-index: 2;
+    }
+    .slide-handle:active {
+      cursor: grabbing;
+      background: var(--gold-primary);
+    }
+
+    /* Standard fallback button */
+    .btn-matte-white {
+      width: 100%;
+      background: var(--btn-white);
+      color: var(--btn-white-text);
+      border: none;
+      padding: 12px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      transition: 0.2s transform, 0.2s background;
+      margin-top: 14px;
+    }
+    .btn-matte-white:hover {
+      background: #e1e2e6;
+      transform: translateY(-1px);
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 22px;
+    }
+    .product-card {
+      background: var(--card-matte);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: 0.25s transform, 0.25s border-color;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    .product-card:hover {
+      border-color: rgba(212, 175, 55, 0.35);
+      transform: translateY(-3px);
+    }
+    .product-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      font-size: 0.68rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .product-img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      background: #000;
+    }
+    .product-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .product-condition {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .price-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 8px 0;
+    }
+    .offer-price {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+    }
+    .actual-price {
+      font-size: 0.85rem;
+      text-decoration: line-through;
+      color: #777;
+    }
+    .product-details {
+      font-size: 0.8rem;
+      color: #bbb;
+      margin-bottom: 10px;
+      flex-grow: 1;
+    }
+
+    /* Services / Side Businesses */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 14px;
+    }
+    .service-card {
+      background: var(--card-matte);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      position: relative;
+    }
+    .service-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: var(--gold-primary);
+    }
+    .service-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* E-Bill & Payment Section */
+    .interactive-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    @media (max-width: 850px) {
+      .interactive-panel { grid-template-columns: 1fr; }
+    }
+    .panel-box {
+      background: var(--card-matte);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+    .panel-box h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .form-control {
+      width: 100%;
+      background: #09090b;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px 14px;
+      color: #fff;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--gold-primary);
+    }
+
+    /* Invoice Canvas Preview */
+    #billPreviewArea {
+      margin-top: 16px;
+      border: 1px dashed var(--gold-primary);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      background: #fff;
+      color: #000;
+      display: none;
+      font-size: 0.85rem;
+    }
+    #billPreviewArea table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+    }
+    #billPreviewArea th, #billPreviewArea td {
+      border: 1px solid #000;
+      padding: 6px;
+      text-align: left;
+    }
+
+    /* Location Section */
+    .location-wrap {
+      background: var(--card-matte);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .address-details {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Offer Popup Ad Modal */
+    .ad-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .ad-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .ad-modal {
+      background: #151518;
+      border: 1px solid var(--gold-primary);
+      border-radius: var(--radius-md);
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+    }
+    .ad-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid #444;
+      color: #fff;
+      font-size: 1.2rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+    }
+    .ad-content {
+      padding: 20px;
+      text-align: center;
+    }
+    .ad-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      background: #000;
+    }
+
+    /* Owner Corner Floating Drawer */
+    .owner-panel {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 460px;
+      height: 100%;
+      background: #111114;
+      border-left: 1px solid var(--gold-primary);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.7);
+      z-index: 1100;
+      overflow-y: auto;
+      padding: 24px;
+      transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .owner-panel.open {
+      right: 0;
+    }
+    .owner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #26262a;
+      padding-bottom: 12px;
+    }
+    .owner-section {
+      background: #18181c;
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+      border: 1px solid #29292e;
+    }
+    .owner-section h4 {
+      color: var(--gold-primary);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    /* Quick QR Display */
+    .qr-card {
+      text-align: center;
+      background: #fff;
+      color: #000;
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      display: inline-block;
+      margin-top: 10px;
+    }
+    .qr-card img {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+    }
+    .upi-id {
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 40px 16px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      background: #08080a;
+    }
+    footer a {
+      color: var(--gold-primary);
+      text-decoration: none;
+    }
+
+    /* Print styling for Invoice */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #billPreviewArea, #billPreviewArea * {
+        visibility: visible;
+      }
+      #billPreviewArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        display: block !important;
+        border: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utilities -->
+  <div class="top-bar">
+    <div class="timing">
+      <span>●</span>
+      <span id="shopHoursDisplay">8:00 AM - 8:00 PM (Sunday Holiday)</span>
+    </div>
+    <div class="quick-links">
+      <a href="https://www.instagram.com/charanmobiles09?igsi=anR2ajczeWRrcHoy" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/916360509055" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <a href="#" class="brand-wrap">
+      <!-- Embedded Golden Archer/Mobile Vector Logo (Zero Broken Image Path) -->
+      <svg class="brand-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" stroke="#d4af37" stroke-width="2"/>
+        <rect x="22" y="38" width="56" height="26" rx="4" stroke="#d4af37" stroke-width="2"/>
+        <path d="M 28 50 C 40 25, 60 25, 72 50 C 60 75, 40 75, 28 50 Z" fill="#d4af37" opacity="0.35"/>
+        <line x1="20" y1="50" x2="80" y2="50" stroke="#f9e282" stroke-width="2"/>
+        <polygon points="80,47 86,50 80,53" fill="#f9e282"/>
+        <circle cx="42" cy="32" r="6" fill="#d4af37"/>
+      </svg>
+      <div class="brand-text">
+        <h1>CHARAN</h1>
+        <span>M O B I L E S</span>
+      </div>
+    </a>
+
+    <nav>
+      <a href="#products">Products</a>
+      <a href="#services">Services</a>
+      <a href="#ebill">E-Bill</a>
+      <a href="#reach">Location</a>
+      <button class="btn-corner-trigger" onclick="openOwnerLogin()">Owner Corner</button>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-badge">AUTHENTIC ELECTRONICS & SERVICES</div>
+    <h2>SMART CHOICE. SMART LIFE.</h2>
+    <p>Premium mobile devices, certified accessories, repairs, and trusted multi-industry services in Naravi.</p>
+    <div class="owner-tag">
+      Proprietor: <span class="hl">M</span>uthu <span class="hl">K</span>umar
+    </div>
+  </section>
+
+  <!-- Main Content Container -->
+  <div class="container">
+
+    <!-- Products Gallery -->
+    <section id="products" style="margin-bottom: 50px;">
+      <h2 class="section-title">Inventory & Gadgets</h2>
+      <p class="section-subtitle">Real stock items verified by owner. Swipe to buy directly via WhatsApp.</p>
+      <div class="product-grid" id="productGridContainer">
+        <!-- Dynamically rendered via state/localStorage -->
+      </div>
+    </section>
+
+    <!-- Side Businesses Section -->
+    <section id="services" style="margin-bottom: 50px;">
+      <h2 class="section-title">Multi-Utility Services</h2>
+      <p class="section-subtitle">Official verified community operations run by Muthu Kumar.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>SBI Insurance Services</h3>
+          <p>All types of life, health, and vehicle insurance policies. Quick documentation and prompt guidance.</p>
+          <a class="btn-matte-white" href="https://wa.me/916360509055?text=Hello%20Charan%20Mobiles,%20I%20want%20details%20about%20SBI%20Insurance%20policies" target="_blank" rel="noopener">Inquire on WhatsApp</a>
+        </div>
+        <div class="service-card">
+          <h3>Rubber Tappers & Workers</h3>
+          <p>Assistance for rubber estate owners and tapping professionals. Direct connection for job placement and tappers.</p>
+          <a class="btn-matte-white" href="https://wa.me/916360509055?text=Hello%20Charan%20Mobiles,%20I%20have%20an%20inquiry%20regarding%20Rubber%20tapping%20workers" target="_blank" rel="noopener">Inquire on WhatsApp</a>
+        </div>
+        <div class="service-card">
+          <h3>Water Pumps & Motors</h3>
+          <p>Heavy-duty, long-life water pumps and motors directly imported from Tamil Nadu at wholesale market rates.</p>
+          <a class="btn-matte-white" href="https://wa.me/916360509055?text=Hello%20Charan%20Mobiles,%20I%20want%20information%20on%20Water%20Pumps%20and%20Motors%20from%20Tamil%20Nadu" target="_blank" rel="noopener">Inquire on WhatsApp</a>
+        </div>
+        <div class="service-card">
+          <h3>Used Vehicles Assistance</h3>
+          <p>Direct vehicle deals arranged on demand. Transparent owner-to-buyer matching without hidden commissions.</p>
+          <a class="btn-matte-white" href="https://wa.me/916360509055?text=Hello%20Charan%20Mobiles,%20I%20want%20to%20know%20about%20used%20vehicles%20availability" target="_blank" rel="noopener">Inquire on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive E-Bill & Payments -->
+    <section id="ebill" style="margin-bottom: 50px;">
+      <div class="interactive-panel">
+        
+        <!-- E-Bill Retrieval -->
+        <div class="panel-box">
+          <h3>Download E-Bill / Invoice</h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">
+            Enter your mobile number or invoice number to view and print your genuine bill.
+          </p>
+          <div class="form-group">
+            <label>Customer Mobile Number / Invoice ID</label>
+            <input type="text" id="billSearchInput" class="form-control" placeholder="e.g. 9876543210 or INV-1001">
+          </div>
+          <button class="btn-matte-white" onclick="lookupBill()">Search & View Bill</button>
+
+          <div id="billPreviewArea">
+            <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 8px;">
+              <div>
+                <strong style="font-size: 1.1rem;">CHARAN MOBILES</strong><br>
+                Near Sooryanarayana Temple, Naravi<br>
+                DK, Karnataka - 574109 | Mob: 6360509055
+              </div>
+              <div style="text-align: right;">
+                <strong id="invoiceIdDisp">TAX INVOICE</strong><br>
+                Date: <span id="invoiceDateDisp"></span>
+              </div>
+            </div>
+            <div style="margin: 10px 0;">
+              <strong>Billed To:</strong> <span id="billCustName"></span> (<span id="billCustPhone"></span>)
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Qty</th>
+                  <th>Rate</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody id="billItemsBody"></tbody>
+            </table>
+            <div style="text-align: right; font-size: 1rem; font-weight: 700;">
+              Grand Total: ₹<span id="billTotalDisp">0</span>
+            </div>
+            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: flex-end;">
+              <span>Thank you for shopping with Charan Mobiles!</span>
+              <span>Authorised Signature</span>
+            </div>
+            <button class="btn-matte-white" style="background:#000; color:#fff; margin-top:14px;" onclick="window.print()">Print / Save PDF</button>
+          </div>
+        </div>
+
+        <!-- Quick Payments -->
+        <div class="panel-box" style="text-align: center;">
+          <h3>Scan & Pay (Official QR)</h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">
+            Scan through GPay, PhonePe, Paytm, or any UPI app.
+          </p>
+          <div class="qr-card">
+            <!-- Inline SVG representing UPI QR code, completely reliable and resilient -->
+            <svg width="170" height="170" viewBox="0 0 100 100" style="display:block; margin:0 auto;">
+              <rect width="100" height="100" fill="#ffffff"/>
+              <!-- Marker Top Left -->
+              <rect x="10" y="10" width="25" height="25" fill="#000000"/>
+              <rect x="15" y="15" width="15" height="15" fill="#ffffff"/>
+              <rect x="18" y="18" width="9" height="9" fill="#000000"/>
+              <!-- Marker Top Right -->
+              <rect x="65" y="10" width="25" height="25" fill="#000000"/>
+              <rect x="70" y="15" width="15" height="15" fill="#ffffff"/>
+              <rect x="73" y="18" width="9" height="9" fill="#000000"/>
+              <!-- Marker Bottom Left -->
+              <rect x="10" y="65" width="25" height="25" fill="#000000"/>
+              <rect x="15" y="70" width="15" height="15" fill="#ffffff"/>
+              <rect x="18" y="73" width="9" height="9" fill="#000000"/>
+              <!-- Dummy data modules -->
+              <rect x="42" y="12" width="6" height="6" fill="#000000"/>
+              <rect x="52" y="18" width="6" height="6" fill="#000000"/>
+              <rect x="42" y="30" width="16" height="6" fill="#000000"/>
+              <rect x="42" y="44" width="16" height="16" fill="#d4af37"/>
+              <rect x="65" y="45" width="8" height="8" fill="#000000"/>
+              <rect x="78" y="55" width="12" height="6" fill="#000000"/>
+              <rect x="45" y="70" width="15" height="6" fill="#000000"/>
+              <rect x="68" y="75" width="18" height="8" fill="#000000"/>
+            </svg>
+            <div class="upi-id">charanmobiles09-1@okicici</div>
+          </div>
+          <div style="margin-top: 14px; font-size: 0.78rem; color: #888;">
+            Account Name: Charan Mobiles | Belthangady Taluk
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Location & Directions -->
+    <section id="reach" style="margin-bottom: 50px;">
+      <h2 class="section-title">Visit Our Store</h2>
+      <p class="section-subtitle">Centrally located near Sooryanarayana Temple in Naravi.</p>
+      <div class="location-wrap">
+        <div class="address-details">
+          <strong>CHARAN MOBILES</strong><br>
+          Near Sooryanarayana Temple, Naravi Post, Belthangady Taluk, Dakshina Kannada District,<br>
+          Karnataka, India — PIN: 574109<br>
+          Mobile / WhatsApp: +91 6360509055
+        </div>
+        
+        <div id="locationSlideContainer">
+          <!-- Slide-to-Reach track -->
+          <div class="slide-action-track" id="reachTrack">
+            <span class="slider-label">SLIDE TO REACH VIA GOOGLE MAPS →</span>
+            <div class="slide-handle" id="reachHandle">➤</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Offer Ad Popup Modal -->
+  <div class="ad-overlay" id="offerAdModal">
+    <div class="ad-modal">
+      <div class="ad-close" onclick="closeOfferModal()">&times;</div>
+      <div class="ad-content">
+        <img id="adModalImg" class="ad-img" src="" alt="Special Offer">
+        <h3 id="adModalTitle" style="color:var(--gold-primary); margin-bottom:8px;">Festival Offer</h3>
+        <p id="adModalDesc" style="font-size:0.85rem; color:#bbb; margin-bottom:14px;"></p>
+        <a class="btn-matte-white" id="adModalAction" href="https://wa.me/916360509055" target="_blank" rel="noopener">Claim Offer on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Owner Corner Modal / Drawer -->
+  <div class="owner-panel" id="ownerCornerPanel">
+    <div class="owner-header">
+      <h3 style="color:var(--gold-primary);">Owner Administration</h3>
+      <button onclick="closeOwnerCorner()" style="background:transparent; border:none; color:#fff; font-size:1.4rem; cursor:pointer;">&times;</button>
+    </div>
+
+    <!-- Login Box -->
+    <div id="ownerAuthArea">
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Protected owner console. Please verify credentials.</p>
+      <div class="form-group">
+        <label>Passcode</label>
+        <input type="password" id="ownerPassInput" class="form-control" placeholder="Enter owner passcode">
+      </div>
+      <button class="btn-matte-white" onclick="verifyOwner()">Unlock Corner</button>
+      <p id="ownerLoginErr" style="color: #ff5555; font-size: 0.78rem; margin-top: 8px; display: none;">Invalid Passcode. Access restricted.</p>
+    </div>
+
+    <!-- Control Center Area (Revealed on Login) -->
+    <div id="ownerDashboardArea" style="display: none;">
+
+      <!-- 1. Theme and Animation Controls -->
+      <div class="owner-section">
+        <h4>Design & Slider Switches</h4>
+        <div class="form-group">
+          <label>Background Color</label>
+          <input type="color" id="ownerBgColorPicker" value="#0e0e11" onchange="updateThemeBg(this.value)">
+        </div>
+        <div class="form-group">
+          <label>Interactive Sliders Mode</label>
+          <select id="sliderToggleSelect" class="form-control" onchange="toggleSliderFeature(this.value)">
+            <option value="enabled">Active (Slide to Buy / Slide to Reach)</option>
+            <option value="disabled">Standard Buttons (Click to Buy / Click to Reach)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Operating Hours / Leave Announcement</label>
+          <input type="text" id="ownerShopTimingInput" class="form-control" value="8:00 AM - 8:00 PM (Sunday Holiday)">
+          <button class="btn-matte-white" style="margin-top:6px; padding:6px;" onclick="saveShopHours()">Update Hours</button>
+        </div>
+      </div>
+
+      <!-- 2. Product Manager -->
+      <div class="owner-section">
+        <h4>Publish / Add Product</h4>
+        <div class="form-group">
+          <label>Product Name</label>
+          <input type="text" id="newProdName" class="form-control" placeholder="e.g. Redmi Note 13 Pro">
+        </div>
+        <div class="form-group">
+          <label>Condition</label>
+          <select id="newProdCond" class="form-control">
+            <option value="Brand New">Brand New</option>
+            <option value="Refurbished">Refurbished</option>
+            <option value="Used / Pre-Owned">Used / Pre-Owned</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Offer Price (₹)</label>
+          <input type="number" id="newProdOfferPrice" class="form-control" placeholder="12999">
+        </div>
+        <div class="form-group">
+          <label>Actual / MRP (₹)</label>
+          <input type="number" id="newProdActualPrice" class="form-control" placeholder="15999">
+        </div>
+        <div class="form-group">
+          <label>Specifications / Description</label>
+          <textarea id="newProdDesc" class="form-control" rows="2" placeholder="8GB RAM, 128GB, Pristine condition..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Upload Image (Camera or Gallery)</label>
+          <input type="file" id="newProdImgFile" class="form-control" accept="image/*" capture="environment">
+        </div>
+        <button class="btn-matte-white" onclick="saveNewProduct()">Publish Product Live</button>
+      </div>
+
+      <!-- 3. Offer & Ad Popups -->
+      <div class="owner-section">
+        <h4>Popup Offer Advertisement</h4>
+        <div class="form-group">
+          <label>Ad Headline</label>
+          <input type="text" id="newOfferTitle" class="form-control" placeholder="Diwali Special Exchange">
+        </div>
+        <div class="form-group">
+          <label>Ad Details</label>
+          <input type="text" id="newOfferDesc" class="form-control" placeholder="Flat 15% discount on all tempered glass & folders">
+        </div>
+        <div class="form-group">
+          <label>Offer Banner Image</label>
+          <input type="file" id="newOfferImgFile" class="form-control" accept="image/*">
+        </div>
+        <div class="form-group">
+          <label>Active Popup on Home</label>
+          <select id="offerActiveToggle" class="form-control">
+            <option value="yes">Yes (Show to Visitors)</option>
+            <option value="no">No (Turn Off)</option>
+          </select>
+        </div>
+        <button class="btn-matte-white" onclick="saveOfferSettings()">Save & Update Ad</button>
+      </div>
+
+      <!-- 4. E-Bill Generator -->
+      <div class="owner-section">
+        <h4>Create E-Bill Record</h4>
+        <div class="form-group">
+          <label>Customer Mobile No.</label>
+          <input type="text" id="billGenPhone" class="form-control" placeholder="6360509055">
+        </div>
+        <div class="form-group">
+          <label>Customer Full Name</label>
+          <input type="text" id="billGenName" class="form-control" placeholder="Customer Name">
+        </div>
+        <div class="form-group">
+          <label>Product / Service Item</label>
+          <input type="text" id="billGenItem" class="form-control" placeholder="Display Replacement + Glass">
+        </div>
+        <div class="form-group">
+          <label>Billed Amount (₹)</label>
+          <input type="number" id="billGenAmount" class="form-control" placeholder="1850">
+        </div>
+        <button class="btn-matte-white" onclick="generateInvoiceRecord()">Save & Issue E-Bill</button>
+      </div>
+
+      <!-- 5. Automated Customer Reminders (English + Kannada) -->
+      <div class="owner-section">
+        <h4>Customer WhatsApp Reminder</h4>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">
+          Automatically composes bilingual messages (Kannada + English) for completed repairs or dues.
+        </p>
+        <div class="form-group">
+          <label>Customer Phone Number</label>
+          <input type="text" id="remPhone" class="form-control" placeholder="Customer 10-digit number">
+        </div>
+        <div class="form-group">
+          <label>Work / Item Type</label>
+          <select id="remWorkType" class="form-control">
+            <option value="display">Display Changed (ಡಿಸ್ಪ್ಲೇ ಬದಲಾವಣೆ)</option>
+            <option value="battery">Battery Changed (ಬ್ಯಾಟರಿ ಬದಲಾವಣೆ)</option>
+            <option value="service">Mobile Service Ready (ಮೊಬೈಲ್ ಸರ್ವಿಸ್ ಸಿದ್ಧ)</option>
+            <option value="balance">Pending Balance Payment (ಬಾಕಿ ಪಾವತಿ)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Amount Due (₹)</label>
+          <input type="number" id="remAmount" class="form-control" placeholder="0 if already paid">
+        </div>
+        <button class="btn-matte-white" onclick="dispatchReminder()">Send Bilingual WhatsApp Alert</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Charan Mobiles, Naravi. All Rights Reserved.</p>
+    <p style="margin-top: 6px;">Proprietor: Muthu Kumar | Belthangady Taluk, Dakshina Kannada, Karnataka</p>
+    <p style="margin-top: 4px;"><a href="https://maps.app.goo.gl/bKs9CdG2TAaKtRuy5?g_st=ac" target="_blank" rel="noopener">Google Maps Location Link</a></p>
+  </footer>
+
+  <!-- Application Script (Self Contained & Error Free) -->
+  <script>
+    // State Keys for Persistence
+    const STORAGE_KEY_PRODS = 'cm_products_data_v1';
+    const STORAGE_KEY_BILLS = 'cm_ebills_data_v1';
+    const STORAGE_KEY_OFFER = 'cm_offer_data_v1';
+    const STORAGE_KEY_SETTINGS = 'cm_settings_v1';
+
+    // Default Seed Products (Guaranteed working placeholders with data URIs)
+    const initialProducts = [
+      {
+        id: 'p1',
+        name: 'Samsung Galaxy A15 5G',
+        condition: 'Brand New',
+        actualPrice: '19499',
+        offerPrice: '16499',
+        desc: '6GB RAM, 128GB Storage, AMOLED Display, 50MP Triple Camera. Official warranty.',
+        image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200"><rect fill="%231a1a1f" width="300" height="200"/><text fill="%23d4af37" font-size="16" x="50%25" y="50%25" text-anchor="middle" font-family="sans-serif">Samsung Galaxy A15 5G</text></svg>'
+      },
+      {
+        id: 'p2',
+        name: 'iPhone 13 (Midnight Black)',
+        condition: 'Used / Pre-Owned',
+        actualPrice: '45000',
+        offerPrice: '36999',
+        desc: '128GB, 89% Battery Health, 100% Original display and body. Tested by owner.',
+        image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200"><rect fill="%231a1a1f" width="300" height="200"/><text fill="%23d4af37" font-size="16" x="50%25" y="50%25" text-anchor="middle" font-family="sans-serif">iPhone 13 128GB</text></svg>'
+      }
+    ];
+
+    // Read stored or seed
+    function getStoredProducts() {
+      const data = localStorage.getItem(STORAGE_KEY_PRODS);
+      return data ? JSON.parse(data) : initialProducts;
+    }
+
+    function getStoredBills() {
+      const data = localStorage.getItem(STORAGE_KEY_BILLS);
+      return data ? JSON.parse(data) : [
+        {
+          id: 'INV-1001',
+          phone: '6360509055',
+          name: 'Demo Customer',
+          item: 'Original Display Combo + 5D Tempered',
+          amount: '2200',
+          date: '08/09/2026'
+        }
+      ];
+    }
+
+    function getStoredSettings() {
+      const data = localStorage.getItem(STORAGE_KEY_SETTINGS);
+      return data ? JSON.parse(data) : {
+        sliderMode: 'enabled',
+        bgColor: '#0e0e11',
+        shopTiming: '8:00 AM - 8:00 PM (Sunday Holiday)'
+      };
+    }
+
+    // Render Product Cards
+    function renderProducts() {
+      const prods = getStoredProducts();
+      const settings = getStoredSettings();
+      const container = document.getElementById('productGridContainer');
+      container.innerHTML = '';
+
+      prods.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+
+        const actionContent = settings.sliderMode === 'enabled' 
+          ? `
+            <div class="slide-action-track" id="prodTrack_${index}">
+              <span class="slider-label">SLIDE TO BUY (WHATSAPP) →</span>
+              <div class="slide-handle" id="prodHandle_${index}">➤</div>
+            </div>
+          `
+          : `
+            <button class="btn-matte-white" onclick="triggerWhatsAppBuy('${item.name}', '${item.offerPrice}')">
+              Buy on WhatsApp
+            </button>
+          `;
+
+        card.innerHTML = `
+          <span class="product-badge">${item.condition}</span>
+          <img src="${item.image}" alt="${item.name}" class="product-img">
+          <div class="product-name">${item.name}</div>
+          <div class="product-condition">${item.condition}</div>
+          <div class="price-wrap">
+            <span class="offer-price">₹${Number(item.offerPrice).toLocaleString()}</span>
+            <span class="actual-price">₹${Number(item.actualPrice).toLocaleString()}</span>
+          </div>
+          <p class="product-details">${item.desc}</p>
+          ${actionContent}
+        `;
+        container.appendChild(card);
+
+        if (settings.sliderMode === 'enabled') {
+          setupSlider(`prodTrack_${index}`, `prodHandle_${index}`, () => {
+            triggerWhatsAppBuy(item.name, item.offerPrice);
+          });
+        }
+      });
+    }
+
+    // Touch & Mouse Slider Mechanics
+    function setupSlider(trackId, handleId, onComplete) {
+      const track = document.getElementById(trackId);
+      const handle = document.getElementById(handleId);
+      if (!track || !handle) return;
+
+      let isDragging = false;
+      let startX = 0;
+      let maxDrag = 0;
+
+      function onStart(e) {
+        isDragging = true;
+        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        maxDrag = track.clientWidth - handle.clientWidth - 6;
+      }
+
+      function onMove(e) {
+        if (!isDragging) return;
+        const currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        let delta = currentX - startX;
+        if (delta < 0) delta = 0;
+        if (delta > maxDrag) delta = maxDrag;
+        handle.style.left = `${delta + 3}px`;
+
+        if (delta >= maxDrag - 5) {
+          isDragging = false;
+          handle.style.left = '3px';
+          onComplete();
+        }
+      }
+
+      function onEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        handle.style.transition = 'left 0.2s ease';
+        handle.style.left = '3px';
+        setTimeout(() => { handle.style.transition = 'none'; }, 200);
+      }
+
+      handle.addEventListener('mousedown', onStart);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onEnd);
+
+      handle.addEventListener('touchstart', onStart, { passive: true });
+      window.addEventListener('touchmove', onMove, { passive: true });
+      window.addEventListener('touchend', onEnd);
+    }
+
+    // WhatsApp Message Triggers
+    function triggerWhatsAppBuy(pName, pPrice) {
+      const msg = `Hello Charan Mobiles (Muthu Kumar), I am interested in purchasing:\n\n*Product:* ${pName}\n*Offer Price:* ₹${pPrice}\n\nPlease share availability and order confirmation.`;
+      const url = `https://wa.me/916360509055?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    }
+
+    function triggerReachLocation() {
+      window.open('https://maps.app.goo.gl/bKs9CdG2TAaKtRuy5?g_st=ac', '_blank');
+    }
+
+    // E-Bill Lookup
+    function lookupBill() {
+      const val = document.getElementById('billSearchInput').value.trim();
+      if (!val) {
+        alert('Please enter your Phone Number or Invoice Number');
+        return;
+      }
+      const bills = getStoredBills();
+      const match = bills.find(b => b.phone === val || b.id.toLowerCase() === val.toLowerCase());
+
+      const area = document.getElementById('billPreviewArea');
+      if (match) {
+        document.getElementById('invoiceIdDisp').textContent = `INVOICE: ${match.id}`;
+        document.getElementById('invoiceDateDisp').textContent = match.date;
+        document.getElementById('billCustName').textContent = match.name;
+        document.getElementById('billCustPhone').textContent = match.phone;
+        document.getElementById('billTotalDisp').textContent = Number(match.amount).toLocaleString();
+
+        const itemsBody = document.getElementById('billItemsBody');
+        itemsBody.innerHTML = `
+          <tr>
+            <td>${match.item}</td>
+            <td>1</td>
+            <td>₹${match.amount}</td>
+            <td>₹${match.amount}</td>
+          </tr>
+        `;
+        area.style.display = 'block';
+      } else {
+        alert('No invoice found for details: ' + val + '. Contact 6360509055 directly.');
+        area.style.display = 'none';
+      }
+    }
+
+    // Owner Administration
+    function openOwnerLogin() {
+      document.getElementById('ownerCornerPanel').classList.add('open');
+    }
+
+    function closeOwnerCorner() {
+      document.getElementById('ownerCornerPanel').classList.remove('open');
+    }
+
+    function verifyOwner() {
+      const input = document.getElementById('ownerPassInput').value;
+      const err = document.getElementById('ownerLoginErr');
+      // Passcode is strictly checked: charan10
+      if (input === 'charan10') {
+        document.getElementById('ownerAuthArea').style.display = 'none';
+        document.getElementById('ownerDashboardArea').style.display = 'block';
+        err.style.display = 'none';
+      } else {
+        err.style.display = 'block';
+      }
+    }
+
+    function updateThemeBg(color) {
+      document.documentElement.style.setProperty('--bg-matte', color);
+      const settings = getStoredSettings();
+      settings.bgColor = color;
+      localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
+    }
+
+    function toggleSliderFeature(mode) {
+      const settings = getStoredSettings();
+      settings.sliderMode = mode;
+      localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
+      renderProducts();
+      renderLocationSlider();
+    }
+
+    function saveShopHours() {
+      const val = document.getElementById('ownerShopTimingInput').value;
+      document.getElementById('shopHoursDisplay').textContent = val;
+      const settings = getStoredSettings();
+      settings.shopTiming = val;
+      localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
+      alert('Shop timings updated live!');
+    }
+
+    function saveNewProduct() {
+      const name = document.getElementById('newProdName').value;
+      const cond = document.getElementById('newProdCond').value;
+      const offer = document.getElementById('newProdOfferPrice').value;
+      const actual = document.getElementById('newProdActualPrice').value;
+      const desc = document.getElementById('newProdDesc').value;
+      const fileInput = document.getElementById('newProdImgFile');
+
+      if (!name || !offer) {
+        alert('Please fill product name and price');
+        return;
+      }
+
+      function commit(imgSrc) {
+        const prods = getStoredProducts();
+        prods.unshift({
+          id: 'p_' + Date.now(),
+          name: name,
+          condition: cond,
+          offerPrice: offer,
+          actualPrice: actual || offer,
+          desc: desc || 'Genuine product available at Charan Mobiles Naravi.',
+          image: imgSrc
+        });
+        localStorage.setItem(STORAGE_KEY_PRODS, JSON.stringify(prods));
+        renderProducts();
+        alert('Product published successfully!');
+        document.getElementById('newProdName').value = '';
+        document.getElementById('newProdOfferPrice').value = '';
+        document.getElementById('newProdActualPrice').value = '';
+        document.getElementById('newProdDesc').value = '';
+      }
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          commit(e.target.result);
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        commit('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200"><rect fill="%231a1a1f" width="300" height="200"/><text fill="%23d4af37" font-size="16" x="50%25" y="50%25" text-anchor="middle" font-family="sans-serif">' + encodeURIComponent(name) + '</text></svg>');
+      }
+    }
+
+    function generateInvoiceRecord() {
+      const phone = document.getElementById('billGenPhone').value.trim();
+      const name = document.getElementById('billGenName').value.trim();
+      const item = document.getElementById('billGenItem').value.trim();
+      const amount = document.getElementById('billGenAmount').value.trim();
+
+      if (!phone || !amount) {
+        alert('Phone and amount are mandatory');
+        return;
+      }
+
+      const invId = 'INV-' + (Math.floor(1000 + Math.random() * 9000));
+      const bills = getStoredBills();
+      bills.push({
+        id: invId,
+        phone: phone,
+        name: name || 'Valued Customer',
+        item: item || 'Mobile Repair / Accessories',
+        amount: amount,
+        date: new Date().toLocaleDateString()
+      });
+      localStorage.setItem(STORAGE_KEY_BILLS, JSON.stringify(bills));
+      alert(`Invoice created: ${invId}. Customer can search using phone: ${phone}`);
+    }
+
+    function dispatchReminder() {
+      const phone = document.getElementById('remPhone').value.trim();
+      const workType = document.getElementById('remWorkType').value;
+      const amount = document.getElementById('remAmount').value.trim();
+
+      if (!phone) {
+        alert('Customer mobile number required');
+        return;
+      }
+
+      let knReason = '';
+      let enReason = '';
+
+      if (workType === 'display') {
+        knReason = 'ನಿಮ್ಮ ಮೊಬೈಲ್ ಡಿಸ್ಪ್ಲೇ ಬದಲಾವಣೆ ಕೆಲಸ ಪೂರ್ಣಗೊಂಡಿದೆ.';
+        enReason = 'Your mobile display change work is completed.';
+      } else if (workType === 'battery') {
+        knReason = 'ನಿಮ್ಮ ಮೊಬೈಲ್ ಹೊಸ ಬ್ಯಾಟರಿ ಬದಲಾವಣೆ ಕೆಲಸ ಪೂರ್ಣಗೊಂಡಿದೆ.';
+        enReason = 'Your mobile new battery installation is completed.';
+      } else if (workType === 'service') {
+        knReason = 'ನಿಮ್ಮ ಮೊಬೈಲ್ ಸರ್ವಿಸ್ ಕೆಲಸ ಮುಗಿದಿದೆ. ಶಾಪಿಗೆ ಬಂದು ಪಡೆದುಕೊಳ್ಳಿ.';
+        enReason = 'Your mobile service is finished. Ready for pickup at shop.';
+      } else {
+        knReason = 'ದಯವಿಟ್ಟು ಉಳಿದಿರುವ ಬಾಕಿ ಮೊತ್ತವನ್ನು ಪಾವತಿಸಿ.';
+        enReason = 'Kindly settle your pending payment.';
+      }
+
+      const billInfo = amount > 0 
+        ? `\n*Amount Due / ಬಾಕಿ ಮೊತ್ತ:* ₹${amount}\nUPI: charanmobiles09-1@okicici` 
+        : '';
+
+      const msg = `*CHARAN MOBILES - NARAVI*\nನಮಸ್ಕಾರ / Hello,\n\n${knReason}\n${enReason}\n${billInfo}\n\nShop Address: Near Sooryanarayana Temple, Naravi\nContact: 6360509055`;
+      
+      const cleanPhone = phone.replace(/[^0-9]/g, '');
+      const fullPhone = cleanPhone.length === 10 ? '91' + cleanPhone : cleanPhone;
+      window.open(`https://wa.me/${fullPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function saveOfferSettings() {
+      const title = document.getElementById('newOfferTitle').value;
+      const desc = document.getElementById('newOfferDesc').value;
+      const active = document.getElementById('offerActiveToggle').value;
+      const fileInput = document.getElementById('newOfferImgFile');
+
+      function store(imgSrc) {
+        const offerData = {
+          title: title || 'Festival Mobile Exchange Offer',
+          desc: desc || 'Visit Charan Mobiles Naravi for exclusive deals and genuine replacements.',
+          active: active,
+          image: imgSrc
+        };
+        localStorage.setItem(STORAGE_KEY_OFFER, JSON.stringify(offerData));
+        alert('Offer details updated.');
+        checkAndShowAd();
+      }
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          store(e.target.result);
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        store('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240"><rect fill="%231a1a1f" width="400" height="240"/><text fill="%23d4af37" font-size="20" x="50%25" y="50%25" text-anchor="middle" font-family="sans-serif">Special Store Offer</text></svg>');
+      }
+    }
+
+    function checkAndShowAd() {
+      const data = localStorage.getItem(STORAGE_KEY_OFFER);
+      if (!data) return;
+      const offer = JSON.parse(data);
+      if (offer.active === 'yes') {
+        document.getElementById('adModalImg').src = offer.image;
+        document.getElementById('adModalTitle').textContent = offer.title;
+        document.getElementById('adModalDesc').textContent = offer.desc;
+        document.getElementById('offerAdModal').classList.add('active');
+      }
+    }
+
+    function closeOfferModal() {
+      document.getElementById('offerAdModal').classList.remove('active');
+    }
+
+    function renderLocationSlider() {
+      const settings = getStoredSettings();
+      const container = document.getElementById('locationSlideContainer');
+      if (settings.sliderMode === 'enabled') {
+        container.innerHTML = `
+          <div class="slide-action-track" id="reachTrack">
+            <span class="slider-label">SLIDE TO REACH VIA GOOGLE MAPS →</span>
+            <div class="slide-handle" id="reachHandle">➤</div>
+          </div>
+        `;
+        setupSlider('reachTrack', 'reachHandle', triggerReachLocation);
+      } else {
+        container.innerHTML = `
+          <button class="btn-matte-white" onclick="triggerReachLocation()">Get Directions on Google Maps</button>
+        `;
+      }
+    }
+
+    // App Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      const settings = getStoredSettings();
+      if (settings.bgColor) {
+        document.documentElement.style.setProperty('--bg-matte', settings.bgColor);
+      }
+      if (settings.shopTiming) {
+        document.getElementById('shopHoursDisplay').textContent = settings.shopTiming;
+      }
+      renderProducts();
+      renderLocationSlider();
+
+      // Show non-intrusive ad popup after slight delay if activated
+      setTimeout(checkAndShowAd, 2200);
+    });
+  </script>
+</body>
+</html>
